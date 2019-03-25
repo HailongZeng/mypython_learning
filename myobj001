@@ -1,0 +1,195 @@
+'''
+class Student:  #类名一般首字母大写，多个单词采用驼峰原则
+
+    def __init__(self,name,score):  #self必须位于第一个参数
+        self.name=name
+        self.score=score
+
+    def say_score(self):   #self必须位于第一个参数
+        print("{0}的分数是：{1}".format(self.name,self.score))
+
+s1=Student("曾海龙",90)    #通过类名()调用构造函数
+s1.say_score()
+'''
+
+'''
+#析构方法
+class Person:
+    def __del__(self):
+        print("销毁对象{0}:".format(self))
+
+p1=Person()
+p2=Person()
+del p2
+print("程序结束")
+'''
+
+'''
+#可调用方法__call__()
+class SalaryAccount:
+    #工资计算类
+    def __call__(self,salary):
+        print("算工资啦...")
+        yearSalary=salary*12
+        daySalary=salary//22.5  #国家规定的每个月的平均工作天数
+        hourSalary=daySalary//8
+
+        return dict(yearSalary=yearSalary,monthSalary=salary,daySalary=daySalary,hourSalary=hourSalary)
+
+s=SalaryAccount()
+print(s(30000))
+'''
+
+'''
+#私有属性和私有方法
+class Employee:
+    
+    __company="ucsd"
+    def __init__(self,name,age):
+        self.name=name
+        self.__age=age
+    def __work(self):
+        print("好好学习，赚钱养家!")
+        print("年龄:{0}".format(self.__age))
+        print(Employee.__company)
+
+e=Employee("曾海龙",22)
+print(e.name)
+print(e._Employee__age)
+e._Employee__work()
+print(Employee._Employee__company)
+'''
+
+'''
+#测试继承
+class Person:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+
+    def say_age(self):
+        print("年龄，年龄，我也不知道")
+
+class Student(Person):
+    def __init__(self,name,age,score):
+        Person.__init__(self,name,age)  #调用父类的构造函数
+        self.score=score
+
+
+
+print(Student.mro())
+s=Student("曾海龙",18,90)
+s.say_age()
+'''
+
+'''
+#super()方法
+class A:
+
+    def say(self):
+        print("A:",self)
+
+class B(A):
+
+    def say(self):
+        super().say()  #A.say(self)
+        print("B:",self)
+
+B().say()
+'''
+
+''''
+#多态
+class Man:
+    def eat(self):
+        print("饿了，吃饭啦！")
+
+class Chinese(Man):
+    def eat(self):
+        print("中国人用筷子吃饭！")
+
+class English(Man):
+    def eat(self):
+        print("英国人用叉子吃饭！")
+
+class Indian(Man):
+    def eat(self):
+        print("印度人用右手吃饭！")
+
+def manEat(m):
+    if isinstance(m,Man):
+        m.eat()
+    else:
+        print("不能吃饭！")
+'''
+
+'''
+#运算符的重载
+class Person:
+    def __init__(self,name):
+        self.name=name
+
+    def __add__(self,other):
+        if isinstance(other,Person):
+            return "{0}--{1}".format(self.name,other.name)
+        else:
+            return "不是同类对象，不能相加"
+
+p1=Person("曾海龙")
+p2=Person("曾海飞")
+x=p1+p2
+print(x)
+'''
+
+'''
+#测试工厂模式
+class CarFactory:
+    def create_car(self,brand):
+        if brand=="奔驰":
+            return Benz()
+        elif brand=="宝马":
+            return Benz()
+        elif brand=="比亚迪":
+            return BYD()
+        else:
+            return "未知品牌，无法创建"
+
+class Benz:
+    pass
+    
+class BMW:
+    pass
+
+class BYD:
+    pass
+
+factory=CarFactory()
+c1=factory.create_car("奔驰")
+c2=factory.create_car("比亚迪")
+print (c1)
+print (c2)
+'''
+
+'''
+#测试单例模式
+class MySingleton:
+    __obj=None #类属性
+    __init__flag=True
+
+def __new__(cls,*args,**kwargs):
+    if cls.__Obj==None:
+        cls.__obj=object.__new__(cls)
+    return cls.__obj
+
+def __init__(self,name):
+    if MySingleton.__init__flag:
+        print("init.....")
+        self.name=name
+    MySingleton.__init_flag=False
+    
+a=MySingleton("aa")
+b=MySingleton("bb")
+print(a）
+print(b)
+'''
+
